@@ -67,13 +67,16 @@ function App() {
 
   return (
     <>
+      <div>
+        <input type="text" value={title} onChange={handleTitleChange} />
+        <button onClick={handleAddTodo}>등록</button>
+      </div>
+      <hr />
       <TodoList
         todoList={todoList}
         onDeleteClick={handleDeleteTodo}
         onToggleClick={handleToggleTodo}
       />
-      <input type="text" value={title} onChange={handleTitleChange} />
-      <button onClick={handleAddTodo}>등록</button>
     </>
   );
 }
@@ -113,8 +116,11 @@ function TodoItem({
   return (
     <div>
       <div>
-        <div>id: {id}.</div>
+        {/* <div>id: {id}.</div> */}
         <div
+          style={{
+            textDecoration: completed ? "line-through" : "none",
+          }}
           onClick={() =>
             onToggleClick({
               id,
@@ -124,9 +130,18 @@ function TodoItem({
         >
           title: {title}
         </div>
-        <div>completed: {`${completed}`}</div>
+        {/* <div>completed: {`${completed}`}</div> */}
+        <button
+          onClick={() =>
+            onToggleClick({
+              id,
+              completed,
+            })
+          }
+        >
+          {completed ? "취소" : "완료"}
+        </button>
         <button onClick={() => onDeleteClick(id)}>삭제</button>
-        <hr />
       </div>
     </div>
   );
